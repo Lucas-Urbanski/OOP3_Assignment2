@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import exceptions.EmptyQueueException;
 import utilities.Iterator;
-import implementations.MyQueue;
+import utilities.QueueADT;
 
 /**
  * @author kitty, maryam
