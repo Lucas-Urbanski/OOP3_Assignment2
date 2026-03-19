@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import utilities.Iterator;
-import utilities.StackADT;
+import implementations.MyStack;
 
 /**
  * @author kitty, maryam
