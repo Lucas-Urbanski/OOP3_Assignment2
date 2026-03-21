@@ -1,17 +1,29 @@
 package utilities;
 
 public interface part1QueueADT<E> {
+	
+	public void createQueue();
 
-	public boolean add(E e);
-	
-	public E element();
-	
-	public boolean offer(E e);
+	public void enqueue(E item);
 	
 	public E peek();
 	
-	public E poll();
+	public E dequeue();
 	
-	public E remove();
+	public boolean equals(part1QueueADT<E> otherQueue);
+	
+	public Iterator<E> iterator();
+	
+	public Object[] toArray();
+	
+	public E[] toArray(E[] copy);
+	
+	public boolean isFull();
+	
+	public int size();
+	
+	public boolean isEmpty();
+	
+	public void dequeueAll();
 	
 }
