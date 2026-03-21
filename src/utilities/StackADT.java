@@ -5,7 +5,7 @@ import java.util.EmptyStackException;
 /**
  * StackADT.java
  * 
- * @author Jordi
+ * @author Lucas & Jordi
  * @version 1.0
  * 
  * <p>
@@ -17,38 +17,41 @@ import java.util.EmptyStackException;
  * @param <E> The type of elements held in this stack.
  */
 public interface StackADT<E> {
+
 	/**
 	 * Tests whether the stack is empty.
 	 *
-	 * Pre-condition:
+	 * Precondition:
 	 * - A valid stack object exists.
 	 *
-	 * Post-condition:
+	 * Postcondition:
 	 * - The stack remains unchanged.
 	 *
 	 * @return true if the stack contains no elements, false otherwise
 	 */
-	public boolean empty();
+	public boolean isEmpty();
+
 	/**
 	 * Looks at the object at the top of the stack without removing it.
 	 *
-	 * Pre-condition:
+	 * Precondition:
 	 * - The stack must not be empty.
 	 *
-	 * Post-condition:
+	 * Postcondition:
 	 * - The stack remains unchanged.
 	 *
 	 * @return the object at the top of the stack
 	 * @throws EmptyStackException if the stack is empty
 	 */
 	public E peek() throws EmptyStackException;
+
 	/**
 	 * Removes and returns the object at the top of the stack.
 	 *
-	 * Pre-condition:
+	 * Precondition:
 	 * - The stack must not be empty.
 	 *
-	 * Post-condition:
+	 * Postcondition:
 	 * - The top element is removed from the stack.
 	 * - The size of the stack decreases by 1.
 	 *
@@ -79,4 +82,18 @@ public interface StackADT<E> {
 	 * or -1 if the object is not found in the stack.
 	 */
 	public int search(Object o);
+
+	public boolean equals(StackADT<E> otherStack);
+	
+	public Iterator<E> iterator();
+	
+	public Object[] toArray();
+	
+	public E[] toArray(E[] copy);
+	
+	public boolean contains(E obj);
+	
+	public int size();
+	
+	public void clear();
 }
