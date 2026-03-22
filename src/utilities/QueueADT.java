@@ -28,39 +28,43 @@ public interface QueueADT<E> {
 	public void createQueue(int size);
 
 	/**
-	 * Mutator method to add an element to the back of the queue.
+	 * Mutator method used to add an element to the rear of the queue.
 	 * 
-	 * Precondition: A Queue exists and the item is not null.
+	 * Precondition: A queue exists, the queue is not full, and the item
+	 * being added is valid.
 	 * 
-	 * Postcondition: The item is added to the back of the queue.
+	 * Postcondition: The given item is inserted at the back of the queue.
 	 * 
-	 * @param item: The item that is being added to the back of the queue.
+	 * @param item the element to be added to the rear of the queue
 	 */
 	public void enqueue(E item);
 
 	/**
-	 * Accessor method to return the first element in the queue.
+	 * Accessor method used to view the element at the front of the queue
+	 * without removing it.
 	 * 
-	 * Precondition: A Queue exists and is not empty.
+	 * Precondition: A queue exists and contains at least one element.
 	 * 
-	 * Postcondition: The first element of the queue is returned.
+	 * Postcondition: The queue remains unchanged and the front element
+	 * is returned.
 	 * 
-	 * @return the item that is at the front of the queue.
+	 * @return the element currently at the front of the queue
 	 * 
-	 * @throws NoSuchElementException if the queue is empty.
+	 * @throws NoSuchElementException if the queue is empty
 	 */
 	public E peek() throws NoSuchElementException;
 
 	/**
-	 * Mutator method to remove the first element in the queue.
+	 * Mutator method used to remove and return the element at the front
+	 * of the queue.
 	 * 
-	 * Precondition: A Queue exists.
+	 * Precondition: A queue exists and contains at least one element.
 	 * 
-	 * Postcondition: The first element of the queue is removed.
+	 * Postcondition: The front element is removed from the queue and returned.
 	 * 
-	 * @return the item that was removed.
+	 * @return the element removed from the front of the queue
 	 * 
-	 * @throws NoSuchElementException if the queue is empty.
+	 * @throws NoSuchElementException if the queue is empty
 	 */
 	public E dequeue() throws NoSuchElementException;
 
@@ -89,20 +93,56 @@ public interface QueueADT<E> {
 	 */
 	public Iterator<E> iterator();
 
+	/**
+	 * Transformer method used to return all elements in the queue as an Object array.
+	 * The front of the queue appears at index 0 of the returned array.
+	 * 
+	 * Precondition: A queue exists.
+	 * 
+	 * Postcondition: A new array containing all queue elements in queue order
+	 * is returned.
+	 * 
+	 * @return an Object array containing all elements in the queue
+	 */
 	public Object[] toArray();
 
+	/**
+	 * Transformer method used to copy the elements of the queue into a typed array.
+	 * The front of the queue appears at index 0 of the returned array.
+	 * 
+	 * Precondition: A queue exists.
+	 * 
+	 * Postcondition: An array containing all queue elements in queue order
+	 * is returned.
+	 * 
+	 * @param copy the array into which the elements of the queue are to be stored,
+	 *             if it is large enough
+	 * @return an array containing all elements in the queue
+	 */
 	public E[] toArray(E[] copy);
 
+	/**
+	 * Accessor method used to determine whether the queue has reached
+	 * its maximum capacity.
+	 * 
+	 * Precondition: A queue exists.
+	 * 
+	 * Postcondition: A boolean result is returned indicating whether the
+	 * queue is full.
+	 * 
+	 * @return true if the queue is full; false otherwise
+	 */
 	public boolean isFull();
 
 	/**
-	 * Accessor method to return the queue size.
+	 * Accessor method used to return the number of elements currently
+	 * stored in the queue.
 	 * 
-	 * Precondition: A Queue exists.
+	 * Precondition: A queue exists.
 	 * 
-	 * Postcondition: A integer of the size of the queue.
+	 * Postcondition: The current number of elements in the queue is returned.
 	 * 
-	 * @return a integer that is representation of the size of the queue.
+	 * @return the number of elements in the queue
 	 */
 	public int size();
 
