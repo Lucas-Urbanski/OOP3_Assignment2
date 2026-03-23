@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
  * 
  * @param <E> The type of elements that the queue stores.
  */
-public interface QueueADT<E> {
+public interface P1QueueADT<E> {
 
 	/**
 	 * Mutator method to create a queue of a certain size.
@@ -76,7 +76,7 @@ public interface QueueADT<E> {
 	 * @param otherQueue:
 	 * @return true if the queues are the same else false.
 	 */
-	public boolean equals(QueueADT<E> otherQueue);
+	public boolean equals(P1QueueADT<E> otherQueue);
 
 	/**
 	 * Transformer method that returns the queue as a iterator.

@@ -15,7 +15,7 @@ import java.util.EmptyStackException;
  * 
  * @param <E> The type of elements held in this stack.
  */
-public interface StackADT<E> {
+public interface P1StackADT<E> {
 
 	/**
 	 * Tests whether the stack is empty.
@@ -91,7 +91,7 @@ public interface StackADT<E> {
 	 * 
 	 * @return true if both stacks contain the same elements in the same order.
 	 */
-	public boolean equals(StackADT<E> otherStack);
+	public boolean equals(P1StackADT<E> otherStack);
 
 	/**
 	 * Returns an iterator over the elements in this stack in proper sequence.
