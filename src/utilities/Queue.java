@@ -1,5 +1,7 @@
 package utilities;
 
+import exceptions.EmptyQueueException;
+
 public class Queue<E> implements QueueADT<E> {
 
 	@Override
