@@ -57,6 +57,7 @@ public class MyDLL<E> implements ListADT<E>
 		MyDLLNode<E> current = getNode(index);
 		MyDLLNode<E> newNode = new MyDLLNode<E>(toAdd);
 
+		// Insert the new node between current.prev and current
 		newNode.prev = current.prev;
 		newNode.next = current;
 		current.prev.next = newNode;
@@ -248,9 +249,11 @@ public class MyDLL<E> implements ListADT<E>
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public Iterator<E> iterator()
 	{
-		return new MyDLLIterator<E>(this);
+		// The iterator works on a copied array version of the list
+		return new MyDLLIterator<E>((E[]) this.toArray());
 	}
 
 	private void addFirst(E item)
@@ -300,6 +303,7 @@ public class MyDLL<E> implements ListADT<E>
 
 		MyDLLNode<E> current;
 
+		// Start from whichever end is closer to reduce traversal time
 		if (index < size / 2)
 		{
 			current = head;
@@ -318,5 +322,38 @@ public class MyDLL<E> implements ListADT<E>
 		}
 
 		return current;
+	}
+
+	/**
+	 * Private iterator class used only by MyDLL.
+	 * It stores a copy of the list elements in an array and iterates through it.
+	 */
+	private class MyDLLIterator<T> implements Iterator<T>
+	{
+		private T[] elements;
+		private int currentIndex;
+
+		public MyDLLIterator(T[] list)
+		{
+			this.elements = list;
+			this.currentIndex = 0;
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return currentIndex < elements.length;
+		}
+
+		@Override
+		public T next() throws NoSuchElementException
+		{
+			if (!hasNext())
+			{
+				throw new NoSuchElementException("No more elements in iterator.");
+			}
+
+			return elements[currentIndex++];
+		}
 	}
 }
