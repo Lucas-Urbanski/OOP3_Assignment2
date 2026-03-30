@@ -1,16 +1,17 @@
 package implementations;
 
 import java.util.EmptyStackException;
-
+import java.util.NoSuchElementException;
+import static java.util.Arrays.copyOf;
 import utilities.Iterator;
 import utilities.StackADT;
 
-public class MyStack<E> implements StackADT<E>{
+public class MyStack<E> implements StackADT<E> {
 
-	private MyArrayList<E> List;
+	private MyArrayList<E> list;
 
 	public MyStack() {
-		List = new MyArrayList<>();
+		list = new MyArrayList<>();
 	}
 
 	@Override
@@ -18,8 +19,8 @@ public class MyStack<E> implements StackADT<E>{
 		if (toAdd == null) {
 			throw new NullPointerException("Cannot add null element to the stack.");
 		}
-		List.add(toAdd);
-		
+		list.add(toAdd);
+
 	}
 
 	@Override
@@ -27,7 +28,7 @@ public class MyStack<E> implements StackADT<E>{
 		if (isEmpty()) {
 			throw new EmptyStackException();
 		}
-		return List.remove(List.size() - 1);
+		return list.remove(list.size() - 1);
 	}
 
 	@Override
@@ -35,27 +36,40 @@ public class MyStack<E> implements StackADT<E>{
 		if (isEmpty()) {
 			throw new EmptyStackException();
 		}
-		return List.get(List.size() - 1);
+		return list.get(list.size() - 1);
 	}
 
 	@Override
 	public void clear() {
-		List.clear();
+		list.clear();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return List.isEmpty();
+		return list.isEmpty();
 	}
 
 	@Override
 	public Object[] toArray() {
-		return List.toArray();
+		Object[] array = new Object[list.size()];
+		for (int i = 0; i < list.size(); i++) {
+			array[i] = list.get(list.size() - 1 - i);
+		}
+		return array;
 	}
 
 	@Override
 	public E[] toArray(E[] holder) throws NullPointerException {
-		return List.toArray(holder);
+		if (holder == null) {
+			throw new NullPointerException("Cannot search for null element in the stack.");
+		}
+		E[] target = holder.length >= list.size()
+				? holder
+				: copyOf(holder, list.size());
+		for (int i = 0; i < list.size(); i++) {
+			target[i] = list.get(list.size() - 1 - i);
+		}
+		return target;
 	}
 
 	@Override
@@ -63,46 +77,63 @@ public class MyStack<E> implements StackADT<E>{
 		if (toFind == null) {
 			throw new NullPointerException("Cannot search for null element in the stack.");
 		}
-		return List.contains(toFind);
+		return list.contains(toFind);
 	}
 
 	@Override
-	public int search(E toFind) {
-		for (int i = 1; i <= List.size(); i++) {
-			E element = List.get(List.size() - i);
-			 if (element.equals(toFind)) {
-				 return i;
-			 }
+	public int search(E toFind) throws NullPointerException {
+		if (toFind == null) {
+			throw new NullPointerException("Cannot search for null element in the stack.");
+		}
+		for (int i = 1; i <= list.size(); i++) {
+			E element = list.get(list.size() - i);
+			if (element.equals(toFind)) {
+				return i;
+			}
 		}
 		return -1;
 	}
 
 	@Override
 	public Iterator<E> iterator() {
-		return List.iterator();
+		return new Iterator<E>() {
+			private int current = size() - 1;
+
+			@Override
+			public boolean hasNext() {
+				return current >= 0;
+			}
+
+			@Override
+			public E next() throws NoSuchElementException {
+				if (!hasNext())
+					throw new NoSuchElementException();
+				return list.get(current--);
+			}
+		};
 	}
 
 	@Override
 	public boolean equals(StackADT<E> that) {
-		 if (that == null) {
-			 return false;
-		 }
-		 if (this.size() != that.size()) {
-			 return false;
-		 }
-		 Object[] thisArray = this.toArray();
-		 Object[] thatArray = that.toArray();
-		 for (int i = 0; i < this.size(); i++) {
-			 if (!thisArray[i].equals(thatArray[i])) {
-				 return false;
-			 }
-		 }
-		 return true;
+		if (that == null) {
+			return false;
+		}
+		if (this.size() != that.size()) {
+			return false;
+		}
+		Object[] thisArray = this.toArray();
+		Object[] thatArray = that.toArray();
+		for (int i = 0; i < this.size(); i++) {
+			if (!thisArray[i].equals(thatArray[i])) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
 	public int size() {
-		return List.size();
+		return list.size();
 	}
 
 	@Override
