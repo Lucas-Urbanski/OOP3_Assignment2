@@ -146,7 +146,7 @@ public class StackTest
 
 	/**
 	 * Test method for
-	 * {@link implementations.MyStack#equals(utilities.MyStack)}
+	 * {@link implementations.MyStack#equals(implementations.MyStack)}
 	 * to return true when the two stacks are equal.
 	 */
 	@Test
@@ -168,7 +168,7 @@ public class StackTest
 
 	/**
 	 * Test method for
-	 * {@link implementations.MyStack#equals(utilities.MyStack)}
+	 * {@link implementations.MyStack#equals(implementations.MyStack)}
 	 * to return false when the two stacks are not equal.
 	 */
 	@Test
@@ -511,7 +511,7 @@ public class StackTest
 
 	/**
 	 * Test method for 
-	 * {@link utilities.MyStack#size()}
+	 * {@link implementations.MyStack#size()}
 	 * to return size when stack is empty.
 	 */
 	@Test
@@ -522,7 +522,7 @@ public class StackTest
 	
 	/**
 	 * Test method for 
-	 * {@link utilities.MyStack#size()}
+	 * {@link implementations.MyStack#size()}
 	 * to return size when stack has one item.
 	 */
 	@Test
@@ -534,7 +534,7 @@ public class StackTest
 
 	/**
 	 * Test method for 
-	 * {@link utilities.MyStack#size()}
+	 * {@link implementations.MyStack#size()}
 	 * to return size when there are many items in the stack.
 	 */
 	@Test
