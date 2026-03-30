@@ -1,29 +1,31 @@
-package utilities;
+package implementations;
 
-import java.util.EmptyStackException;
+import utilities.Iterator;
+import utilities.QueueADT;
+import exceptions.EmptyQueueException;
 
-public class Stack<E> implements StackADT<E> {
+public class MyQueue<E> implements QueueADT<E> {
 
 	@Override
-	public void push(E toAdd) throws NullPointerException {
+	public void enqueue(E toAdd) throws NullPointerException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public E pop() throws EmptyStackException {
+	public E dequeue() throws EmptyQueueException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public E peek() throws EmptyStackException {
+	public E peek() throws EmptyQueueException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void clear() {
+	public void dequeueAll() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -32,18 +34,6 @@ public class Stack<E> implements StackADT<E> {
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public E[] toArray(E[] holder) throws NullPointerException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -65,7 +55,25 @@ public class Stack<E> implements StackADT<E> {
 	}
 
 	@Override
-	public boolean equals(StackADT<E> that) {
+	public boolean equals(QueueADT<E> that) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Object[] toArray() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public E[] toArray(E[] holder) throws NullPointerException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isFull() {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -74,12 +82,6 @@ public class Stack<E> implements StackADT<E> {
 	public int size() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public boolean stackOverflow() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
