@@ -1,6 +1,9 @@
 package implementations;
 
 import utilities.ListADT;
+
+import java.util.NoSuchElementException;
+
 import utilities.Iterator;
 
 /**
@@ -299,9 +302,60 @@ public class MyArrayList<E> implements ListADT<E> {
         return result;
     }
 
+    /**
+     * Returns an iterator over the elements in the list.
+     * 
+     * @return an iterator for the list
+     */
     @Override
     public Iterator<E> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        return new ArrayListIterator();
+
+    }
+
+    /**
+     * Private inner class that implements the Iterator interface for MyArrayList.
+     * It provides methods to iterate over the elements of the list.
+     */
+    private class ArrayListIterator implements Iterator<E> {
+        
+        // Aatributes
+        private E[] copyOfElements;
+        private int current = 0;
+
+        /**
+         * Creates a new ArrayListIterator and initializes the copyOfElements array with the elements of the list.
+         */
+        @SuppressWarnings("unchecked")
+		public ArrayListIterator() {
+			copyOfElements = (E[]) new Object[size()];
+			for (int i = 0; i < size(); i++) {
+				copyOfElements[i] = data[i];
+			}
+		}
+
+        /**
+         * Checks if there are more elements to iterate over.
+         * 
+         * @return true if there are more elements to iterate over, otherwise false
+         */
+        @Override
+        public boolean hasNext() {
+            return current < size;
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         * 
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if there are no more elements to return
+         */
+        @Override
+        public E next() throws NoSuchElementException {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return data[current++];
+        }
     }
 }
