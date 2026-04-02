@@ -277,7 +277,7 @@ public class MyArrayList<E> implements ListADT<E> {
      * @return an iterator for the list
      */
     @Override
-    public Iterator<E> iterator() {
+    public Iterator<E> iterator() { 
         return new ArrayListIterator();
 
     }
