@@ -65,10 +65,10 @@ public class Parser
 		// Uses the custom stack implementation to track opening tags
 		MyStack<TagEntry> stack = new MyStack<>();
 
-		// LinkedHashSet keeps insertion order while preventing duplicate line numbers
+		// Stores line numbers with errors while preventing duplicates
 		LinkedHashSet<Integer> errorLines = new LinkedHashSet<>();
 
-		// Stores all original lines so they can be printed with their line numbers later
+		// Stores all original lines so they can be printed later
 		ArrayList<String> allLines = new ArrayList<>();
 
 		// Matches anything that looks like an XML tag
@@ -77,7 +77,7 @@ public class Parser
 		String line;
 		int lineNumber = 0;
 
-		// Used to check the "one and only one root tag" rule
+		// Used to enforce the "one and only one root tag" rule
 		int rootCount = 0;
 
 		while ((line = reader.readLine()) != null)
@@ -92,18 +92,18 @@ public class Parser
 			{
 				String tag = matcher.group();
 
-				// Ignore XML processing instructions such as <?xml version="1.0"?>
+				// Adheres to rule: processing instructions such as <?xml ... ?> are ignored
 				if (tag.startsWith("<?"))
 				{
 					continue;
 				}
 
-				// Self-closing tags do not need matching closing tags
+				// Adheres to rule: self-closing tags do not require a matching closing tag
 				if (tag.endsWith("/>"))
 				{
 					/*
 					 * If a self-closing tag appears while the stack is empty,
-					 * it is acting as a top-level element and may count as a root.
+					 * it acts as a top-level element and may count as the root.
 					 */
 					if (stack.isEmpty())
 					{
@@ -121,7 +121,7 @@ public class Parser
 				{
 					String name = extractName(tag);
 
-					// A closing tag with no earlier opening tag is invalid
+					// Adheres to rule: every closing tag must match an earlier opening tag
 					if (stack.isEmpty())
 					{
 						errorLines.add(lineNumber);
@@ -131,8 +131,8 @@ public class Parser
 						TagEntry top = stack.peek();
 
 						/*
-						 * The closing tag must match the most recent opening tag.
-						 * If it does not, the XML nesting is broken.
+						 * Adheres to rule: nested tags cannot intercross,
+						 * and XML tags are case-sensitive.
 						 */
 						if (top.tagName.equals(name))
 						{
@@ -150,8 +150,9 @@ public class Parser
 					String name = extractName(tag);
 
 					/*
-					 * If the stack is empty, this tag is starting a top-level section.
-					 * That means it may be a root element.
+					 * Adheres to rule: an XML document must have one and only one root tag.
+					 * A new opening tag found while the stack is empty is starting a
+					 * top-level section, so it may be a root element.
 					 */
 					if (stack.isEmpty())
 					{
@@ -171,8 +172,8 @@ public class Parser
 
 		/*
 		 * Any tags left in the stack were never properly closed.
-		 * Since popping a stack returns them in reverse order, they are first
-		 * stored in a temporary list and then added back in forward order.
+		 * Since popping a stack returns them in reverse order, store them first
+		 * and then add them back in forward order.
 		 */
 		ArrayList<Integer> remaining = new ArrayList<>();
 
@@ -203,6 +204,8 @@ public class Parser
 	 * </book> -> book
 	 * <book id="1"> -> book
 	 * <book/> -> book
+	 *
+	 * Adheres to rule: XML attributes are ignored for this assignment.
 	 *
 	 * @param tag the raw XML tag
 	 * @return the cleaned tag name
@@ -237,7 +240,11 @@ public class Parser
 		{
 			System.out.println("Errors found:");
 
-			for (Integer ln : errorLines)
+			// Adheres to rule: errors are displayed in the order they occur in the document
+			ArrayList<Integer> sortedLines = new ArrayList<>(errorLines);
+			sortedLines.sort(null);
+
+			for (Integer ln : sortedLines)
 			{
 				System.out.println("Line " + ln + ": " + allLines.get(ln - 1));
 			}
