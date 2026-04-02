@@ -365,11 +365,10 @@ public class MyDLL<E> implements ListADT<E>
 	 * @return an iterator over the elements in the list
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public Iterator<E> iterator()
 	{
 		// The iterator works on a copied array version of the list
-		return new MyDLLIterator<E>((E[]) this.toArray());
+		return new MyDLLIterator();
 	}
 
 	/**
@@ -463,9 +462,9 @@ public class MyDLL<E> implements ListADT<E>
 	 * Private iterator class used only by MyDLL.
 	 * It stores a copy of the list elements in an array and iterates through it.
 	 */
-	private class MyDLLIterator<T> implements Iterator<T>
+	private class MyDLLIterator implements Iterator<E>
 	{
-		private T[] elements;
+		private E[] elements;
 		private int currentIndex;
 
 		/**
@@ -473,10 +472,19 @@ public class MyDLL<E> implements ListADT<E>
 		 *
 		 * @param list the copied array to iterate over
 		 */
-		public MyDLLIterator(T[] list)
+
+		@SuppressWarnings( "unchecked" )
+		public MyDLLIterator()
 		{
-			this.elements = list;
-			this.currentIndex = 0;
+			elements = (E[]) ( new Object[size()] );
+			MyDLLNode<E> curr = head;
+
+			// "safe" implementation - snapshot of the SLL to be used for traversal
+			for( int i = 0; i < size; i++ )
+			{
+				elements[i] = curr.getElement();
+				curr = curr.getNext();
+			}
 		}
 
 		/**
@@ -497,7 +505,7 @@ public class MyDLL<E> implements ListADT<E>
 		 * @throws NoSuchElementException if there are no elements left
 		 */
 		@Override
-		public T next() throws NoSuchElementException
+		public E next() throws NoSuchElementException
 		{
 			if (!hasNext())
 			{

@@ -22,4 +22,12 @@ class MyDLLNode<E> {
 		this.next = null;
 		this.prev = null;
 	}
+	
+	public E getElement() {
+		return this.data;
+	}
+	
+	public MyDLLNode<E> getNext(){
+		return this.next;
+	}
 }
