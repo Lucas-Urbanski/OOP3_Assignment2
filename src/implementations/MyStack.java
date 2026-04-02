@@ -12,15 +12,16 @@ import utilities.StackADT;
  * @author Lucas Urbanski
  * @version 1.0
  * 
- * MyStack is a class that implements the StackADT interface using a MyArrayList as the underlying data structure.
- * It provides methods to perform standard stack operations such as push, pop, peek, clear, etc.
+ *          MyStack is a class that implements the StackADT interface using a
+ *          MyArrayList as the underlying data structure.
+ *          It provides methods to perform standard stack operations such as
+ *          push, pop, peek, clear, etc.
  */
 
 public class MyStack<E> implements StackADT<E> {
 
 	// Attributes
 	private MyArrayList<E> list;
-
 
 	// Constructor
 	public MyStack() {
@@ -87,7 +88,6 @@ public class MyStack<E> implements StackADT<E> {
 	public boolean isEmpty() {
 		return list.isEmpty();
 	}
-
 
 	/**
 	 * Converts the stack to an array.
@@ -165,34 +165,8 @@ public class MyStack<E> implements StackADT<E> {
 	 * 
 	 * @return an iterator over the elements in the stack
 	 */
-	@Override
 	public Iterator<E> iterator() {
-		return new Iterator<E>() {
-			private int current = size() - 1;
-
-			/**
-			 * Checks if there are more elements to iterate over.
-			 * 
-			 * @return true if there are more elements to iterate over, otherwise false
-			 */
-			@Override
-			public boolean hasNext() {
-				return current >= 0;
-			}
-
-			/**
-			 * Returns the next element in the iteration.
-			 * 
-			 * @return the next element in the iteration
-			 * @throws NoSuchElementException if there are no more elements to iterate over
-			 */
-			@Override
-			public E next() throws NoSuchElementException {
-				if (!hasNext())
-					throw new NoSuchElementException();
-				return list.get(current--);
-			}
-		};
+		return new StackIterator();
 	}
 
 	/**
@@ -238,4 +212,37 @@ public class MyStack<E> implements StackADT<E> {
 	public boolean stackOverflow() {
 		return false;
 	}
+
+	private class StackIterator implements Iterator<E> {
+
+		private int current = size() - 1;
+
+		// Constructor
+		public StackIterator() {
+			
+		}
+
+		/**
+		 * Checks if there are more elements to iterate over.
+		 * 
+		 * @return true if there are more elements to iterate over, otherwise false
+		 */
+		@Override
+		public boolean hasNext() {
+			return current >= 0;
+		}
+
+		/**
+		 * Returns the next element in the iteration.
+		 * 
+		 * @return the next element in the iteration
+		 * @throws NoSuchElementException if there are no more elements to iterate over
+		 */
+		@Override
+		public E next() throws NoSuchElementException {
+			if (!hasNext())
+				throw new NoSuchElementException();
+			return list.get(current--);
+		}
+	};
 }
