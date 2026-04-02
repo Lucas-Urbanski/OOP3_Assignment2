@@ -10,9 +10,8 @@ import utilities.Iterator;
  * @version 1.0
  * 
  * MyArrayList is a generic dynamic array implementation of the ListADT interface.
- * 
- * <p>This class stores elements in an internal array that automatically resizes
- * when capacity is reached. Elements are stored in order and indexed from 0.</p>
+ * This class stores elements in an internal array that automatically resizes
+ * when capacity is reached. Elements are stored in order and indexed from 0.
  */
 public class MyArrayList<E> implements ListADT<E> {
 
@@ -247,5 +246,23 @@ public class MyArrayList<E> implements ListADT<E> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
+    }
+
+    @Override
+    public E[] toArray(E[] toHold) throws NullPointerException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+    }
+
+    @Override
+    public Object[] toArray() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
     }
 }
