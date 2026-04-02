@@ -259,16 +259,40 @@ public class MyArrayList<E> implements ListADT<E> {
         }
     }
 
-    @Override
-    public E[] toArray(E[] toHold) throws NullPointerException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+    @SuppressWarnings("unchecked")
+	@Override
+    public E[] toArray(E[] toHold) throws NullPointerException 
+    {
+        if (toHold == null) 
+        {
+            throw new NullPointerException();
+        }
+
+        if (toHold.length < size)
+		{
+			toHold = (E[]) java.lang.reflect.Array.newInstance(
+				toHold.getClass().getComponentType(), size);
+		}
+
+        for (int i = 0; i < size; i++) 
+        {
+            toHold[i] = data[i];
+        }
+
+        return toHold;
     }
 
     @Override
-    public Object[] toArray() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toArray'");
+    public Object[] toArray() 
+    {
+        Object[] result = new Object[size];
+
+        for (int i = 0; i < size; i++) 
+        {
+            result[i] = data[i];
+        }
+
+        return result;
     }
 
     @Override
