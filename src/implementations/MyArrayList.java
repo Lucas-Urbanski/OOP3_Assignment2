@@ -271,6 +271,11 @@ public class MyArrayList<E> implements ListADT<E> {
         throw new UnsupportedOperationException("Unimplemented method 'toArray'");
     }
 
+    /**
+     * Returns an iterator over the elements in the list.
+     * 
+     * @return an iterator for the list
+     */
     @Override
     public Iterator<E> iterator() {
         return new ArrayListIterator();
