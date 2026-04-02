@@ -1,12 +1,15 @@
 package implementations;
 
 import utilities.ListADT;
+
+import java.util.NoSuchElementException;
+
 import utilities.Iterator;
 
 /**
  * MyArrayList.java
  * 
- * @author Jordi Usen 
+ * @author Jordi Usen
  * @version 1.0
  * 
  * MyArrayList is a generic dynamic array implementation of the ListADT interface.
@@ -70,8 +73,10 @@ public class MyArrayList<E> implements ListADT<E> {
      */
     @Override
     public boolean add(int index, E toAdd) {
-        if (toAdd == null) throw new NullPointerException();
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+        if (toAdd == null)
+            throw new NullPointerException();
+        if (index < 0 || index > size)
+            throw new IndexOutOfBoundsException();
 
         ensureCapacity();
 
@@ -93,7 +98,8 @@ public class MyArrayList<E> implements ListADT<E> {
      */
     @Override
     public boolean add(E toAdd) {
-        if (toAdd == null) throw new NullPointerException();
+        if (toAdd == null)
+            throw new NullPointerException();
 
         ensureCapacity();
         data[size++] = toAdd;
@@ -109,7 +115,8 @@ public class MyArrayList<E> implements ListADT<E> {
      */
     @Override
     public boolean addAll(ListADT<? extends E> toAdd) {
-        if (toAdd == null) throw new NullPointerException();
+        if (toAdd == null)
+            throw new NullPointerException();
 
         for (int i = 0; i < toAdd.size(); i++) {
             add(toAdd.get(i));
@@ -161,7 +168,8 @@ public class MyArrayList<E> implements ListADT<E> {
      */
     @Override
     public E remove(E toRemove) {
-        if (toRemove == null) throw new NullPointerException();
+        if (toRemove == null)
+            throw new NullPointerException();
 
         for (int i = 0; i < size; i++) {
             if (data[i].equals(toRemove)) {
@@ -183,7 +191,8 @@ public class MyArrayList<E> implements ListADT<E> {
      */
     @Override
     public E set(int index, E toChange) {
-        if (toChange == null) throw new NullPointerException();
+        if (toChange == null)
+            throw new NullPointerException();
         checkIndex(index);
 
         E old = data[index];
@@ -210,10 +219,12 @@ public class MyArrayList<E> implements ListADT<E> {
      */
     @Override
     public boolean contains(E toFind) {
-        if (toFind == null) throw new NullPointerException();
+        if (toFind == null)
+            throw new NullPointerException();
 
         for (int i = 0; i < size; i++) {
-            if (data[i].equals(toFind)) return true;
+            if (data[i].equals(toFind))
+                return true;
         }
 
         return false;
@@ -262,7 +273,53 @@ public class MyArrayList<E> implements ListADT<E> {
 
     @Override
     public Iterator<E> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+        return new ArrayListIterator();
+
+    }
+
+    /**
+     * Private inner class that implements the Iterator interface for MyArrayList.
+     * It provides methods to iterate over the elements of the list.
+     */
+    private class ArrayListIterator implements Iterator<E> {
+        
+        // Aatributes
+        private E[] copyOfElements;
+        private int current = 0;
+
+        /**
+         * Creates a new ArrayListIterator and initializes the copyOfElements array with the elements of the list.
+         */
+        @SuppressWarnings("unchecked")
+		public ArrayListIterator() {
+			copyOfElements = (E[]) new Object[size()];
+			for (int i = 0; i < size(); i++) {
+				copyOfElements[i] = data[i];
+			}
+		}
+
+        /**
+         * Checks if there are more elements to iterate over.
+         * 
+         * @return true if there are more elements to iterate over, otherwise false
+         */
+        @Override
+        public boolean hasNext() {
+            return current < size;
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         * 
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if there are no more elements to return
+         */
+        @Override
+        public E next() throws NoSuchElementException {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return data[current++];
+        }
     }
 }

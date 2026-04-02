@@ -213,13 +213,25 @@ public class MyStack<E> implements StackADT<E> {
 		return false;
 	}
 
+	/**
+	 * Returns a string representation of the stack.
+	 * 
+	 * @return a string representation of the stack
+	 */	
 	private class StackIterator implements Iterator<E> {
 
+		private E[] copyOfElements;
 		private int current = size() - 1;
-
-		// Constructor
+		 
+		/**
+		 * Creates a new StackIterator and initializes the copyOfElements array with the elements of the stack in LIFO order.
+		 */
+		@SuppressWarnings("unchecked")
 		public StackIterator() {
-			
+			copyOfElements = (E[]) new Object[size()];
+			for (int i = 0; i < size(); i++) {
+				copyOfElements[i] = list.get(i);
+			}
 		}
 
 		/**
