@@ -2,6 +2,8 @@ package utilities;
 
 import java.util.NoSuchElementException;
 
+import implementations.MyDLL;
+
 /**
  * Iterator implementation for MyDLL.
  * 
